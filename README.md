@@ -29,4 +29,4 @@ Just remember to put all your mathmode on the same line!
 ```
 
 # Compiling to LaTeX
-Open the terminal in the directory of your file and type `python3 larkdown.py filename.txt` and it will create a new file in the directory called `filename.tex` which you can then turn to a pdf using pdflatex with `pdflatex filename.tex`. Note that you may pass the script multiple file names, so `python3 larkdown.py filename1.txt filename2.txt` will return `filename1.tex` and `filename2.tex`.
+Open the terminal in the directory of your file and type `python3 larkdown.py filename.txt` and it will create a new file in the directory called `filename.tex` which you can then use to generate a pdf using pdflatex with `pdflatex filename.tex`. Note that you may pass the script multiple file names, so `python3 larkdown.py filename1.txt filename2.txt` will return `filename1.tex` and `filename2.tex`.
