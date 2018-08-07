@@ -1,5 +1,5 @@
 # larkdown
-A _very_ basic markdown-esque text-to-tex tool that allows for the easy creation of LaTeX documents. Mostly used by myself to quickly write up soltuions to homework.
+A _very_ basic markdown-esque text-to-tex tool that allows for the easy creation of LaTeX documents. Mostly used by myself to quickly write up homework solutions.
 
 # Using larkdown
 To start, open a plain text file and save it as _filename.txt_. The first three lines of the file are reserved for the title, author and date declarations. To add a title, author or date, add the following
