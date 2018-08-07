@@ -56,12 +56,12 @@ def to_tex(file_name):
         
         # set title, author and date
         for i in data_list[0 : total_count]:
-            if i[0 : 3] == '#T ':
+            if i[0 : 2] == '#T':
                 title = i[3 : ]
-            if i[0 : 3] == '#A ':
+            if i[0 : 2] == '#A':
                 author = i[3 : ]
-            if i[0 : 3] == '#D ':
-                date = i[3 : ]
+            if i[0 : 2] == '#D':
+                date = i[2 : ]
         
         # if there is a title, author or date, then add them
         if title_count == 1:
@@ -70,27 +70,38 @@ def to_tex(file_name):
             top_string += '\n\\author{' + author + '}'
         if date_count == 1 and date != '':
             top_string += '\n\\date{' + date + '}'
-        elif date_count == 0:
-            top_string += '\n\\date{}'
         
         # if there is a date, author or title, then display them
         if total_count > 0:
-            top_string += '\n\\maketitle'
+            top_string += '\n\\maketitle\n'
         
         # removes the author, title and date parts (if any)
         data_list = data_list[total_count : ]
+        
+        # remove all instances of '' from the data_list
+        data_list = list(filter(lambda a: a != '', data_list))
         
         # find size of list to use in the following loop
         list_length = len(data_list)
         
         # run a loop that iterates over each line in the document
-        for i in range(list_length):
+        for i in range(list_length - 1):
             if data_list[i][0 : 2] == '# ':
-                top_string += '\n\\section*{' + data_list[i][2 : ] + '}\n'
-            elif data_list[i] == '':
-                pass
+                top_string += '\section*{' + data_list[i][2 : ] + '}\n'
+            elif data_list[i + 1][0 : 2] == '\[' or data_list[i][0 : 2] == '\[':
+                top_string += data_list[i] + '\n'
+            elif data_list[i + 1][0 : 2] == '# ':
+                top_string += data_list[i] + '\n'
             else:
                 top_string += data_list[i] + '\\\\\n\n'
+        
+        # repeat for the last line
+        if data_list[list_length - 1][0 : 2] == '# ':
+            top_string += '\n\\section*{' + data_list[list_length - 1][2 : ] + '}\n'
+        elif data_list[list_length - 1][0 : 2] == '\[':
+            top_string += data_list[list_length - 1] + '\n'
+        else:
+            top_string += data_list[list_length - 1]
         
         # declare a new file name (only works for txt files)
         new_file_name = file_name[ : -4] + '.tex'
