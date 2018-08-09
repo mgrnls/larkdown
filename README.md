@@ -12,6 +12,8 @@ to the top of the file, where you replace (for example) 'Title' with whatever yo
 
 To add a section heading, simply begin a line with '# ' followed by your desired section heading.
 
+You can also use bullet points or numbered lists. These will use the itemize and enumerate environments in LaTeX respectively. To use bullet points, simply start each line with `- ` and to use numbered lists start each line with `#.` followed by some text.
+
 Each line of text will be treated as a separate paragraph, and blank lines will be ignored. However, if a line starts with '\[' it will be treated as a math mode line.
 
 # Example
@@ -26,6 +28,16 @@ This is the first paragraph in the text.
 This is another paragraph! Here we can use inline math mode like this $4x + 3$ or we can use math mode on a separate line like below
 \[4x+3\]
 Just remember to put all your mathmode on the same line!
+
+Below is a numbered list:
+#. first thing
+#. second thing 
+#third thing
+
+Below is a bulleted list:
+- first thing
+- second thing
+- third thing
 ```
 
 # Compiling to LaTeX
