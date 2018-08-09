@@ -68,8 +68,10 @@ def to_tex(file_name):
             top_string += '\n\\title{' + title + '}'
         if author_count == 1:
             top_string += '\n\\author{' + author + '}'
-        if date_count == 1 and date != '':
+        if date_count == 1 and (date != '' or date != ' '):
             top_string += '\n\\date{' + date + '}'
+        if date_count == 0:
+            top_string += '\n\\date{}'
         
         # if there is a date, author or title, then display them
         if total_count > 0:
