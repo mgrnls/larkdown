@@ -25,8 +25,10 @@ Below is a very simple example.
 # This is a section heading!
 This is the first paragraph in the text.
 
-This is another paragraph! Here we can use inline math mode like this $4x + 3$ or we can use math mode on a separate line like below
+This is another paragraph! Here we can use inline math mode like this $4x + 3$ or
 \[4x+3\]
+to have it on a seperate line.
+
 Just remember to put all your mathmode on the same line!
 
 Below is a numbered list:
