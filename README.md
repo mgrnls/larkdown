@@ -32,7 +32,7 @@ Just remember to put all your mathmode on the same line!
 Below is a numbered list:
 #. first thing
 #. second thing 
-#third thing
+#. third thing
 
 Below is a bulleted list:
 - first thing
