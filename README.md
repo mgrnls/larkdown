@@ -41,6 +41,7 @@ Below is a bulleted list:
 - second thing
 - third thing
 ```
+Hopefully it should be clear that the above is much clearer to read and easier to write than a standard (short) LaTeX document.
 
 # Compiling to LaTeX
 Open the terminal in the directory of your file and type `python3 larkdown.py filename.txt` and it will create a new file in the directory called `filename.tex` which you can then use to generate a pdf using pdflatex with `pdflatex filename.tex`. Note that you may pass the script multiple file names, so `python3 larkdown.py filename1.txt filename2.txt` will return `filename1.tex` and `filename2.tex`.
