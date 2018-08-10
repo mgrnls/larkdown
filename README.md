@@ -42,6 +42,8 @@ Below is a bulleted list:
 - first thing
 - second thing
 - third thing
+
+Some things in _italics_ and *bold*.
 ```
 Hopefully it should be clear that the above is much clearer to read and easier to write than a standard (short) LaTeX document.
 
