@@ -16,6 +16,8 @@ You can also use bullet points or numbered lists. These will use the itemize and
 
 Each line of text will be treated as a separate paragraph, and blank lines will be ignored. However, if a line starts with '\[' it will be treated as a math mode line.
 
+To add bold and/or italics, simply surround things you want in italics by \_underscores\_ and things you want in bold by \*asterisks\*.
+
 # Example
 Below is a very simple example.
 ```
