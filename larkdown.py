@@ -49,6 +49,33 @@ def to_tex(file_name):
         print('Too many date fields.')
         is_sound = False
     
+    # run through list, replace '_x_', '*x*' with '\textit{x}' and '\textbf{x}' respectively
+    temp_string = ''
+    italic_mode = False
+    bold_mode = False
+    
+    for i in read_data:
+        if i == '_' and italic_mode == False:
+            temp_string += '\\textit{'
+            italic_mode = True
+        elif i == '_' and italic_mode == True:
+            temp_string += '}'
+            italic_mode = False
+        elif i == '*' and bold_mode == False:
+            temp_string += '\\textbf{'
+            bold_mode = True
+        elif i == '*' and bold_mode == True:
+            temp_string += '}'
+            bold_mode = False
+        else:
+            temp_string += i
+    
+    if italic_mode == True:
+        print('Missing a _ somewhere')
+    if bold_mode == True:
+        print('Missing a * somewhere')
+    read_data = temp_string
+    
     # if the document is sound, then start converting it
     if is_sound:
         # turn the string into a list of lines
