@@ -14,7 +14,7 @@ To add a section heading, simply begin a line with '# ' followed by your desired
 
 You can also use bullet points or numbered lists. These will use the itemize and enumerate environments in LaTeX respectively. To use bullet points, simply start each line with `- ` and to use numbered lists start each line with `#.` followed by some text.
 
-Each line of text will be treated as a separate paragraph, and blank lines will be ignored. However, if a line starts with '\[' it will be treated as a math mode line.
+Each line of text will be treated as a separate paragraph, and blank lines will be ignored. However, if a line starts with '\\\[' it will be treated as a math mode line.
 
 To add bold and/or italics, simply surround things you want in italics by \_underscores\_ and things you want in bold by \*asterisks\*.
 
