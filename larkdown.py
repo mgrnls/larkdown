@@ -17,7 +17,13 @@ def main():
     for arg in arguments:
         to_tex(arg)
 
-
+def rem_spaces(s):
+    # removes spaces from the beginning of a string
+    for i in range(len(s)):
+        if s[i] != ' ':
+            return s[i :]
+    return ''
+            
 
 def to_tex(file_name):
     # takes file name, turns the file into text and then outputs a tex file file_name.tex
@@ -119,35 +125,35 @@ def to_tex(file_name):
                 top_string += '\section*{' + data_list[i][2 : ] + '}\n'
             elif data_list[i][0 : 2] == '#.':
                 if i == 0:
-                    top_string += '\\begin{enumerate}\n\\item ' + data_list[i][2 : ] + '\n'
+                    top_string += '\\begin{enumerate}\n\\item ' + rem_spaces(data_list[i][2 : ]) + '\n'
                     if data_list[1][0 : 2] != '#.':
                         top_string += '\\end{enumerate}\n'
                 else:
                     if data_list[i - 1][0 : 2] == data_list[i + 1][0 : 2] == '#.':
-                        top_string += '\\item ' + data_list[i][2 : ] + '\n'
+                        top_string += '\\item ' + rem_spaces(data_list[i][2 : ]) + '\n'
                     elif data_list[i - 1][0 : 2] != '#.' and data_list[i + 1][0 : 2] != '#.':
-                        top_string += '\\begin{enumerate}\n\\item ' + data_list[i][2 : ] + '\\end{enumerate}\n'
+                        top_string += '\\begin{enumerate}\n\\item ' + rem_spaces(data_list[i][2 : ]) + '\\end{enumerate}\n'
                     elif data_list[i - 1][0 : 2] == '#.' and data_list[i + 1][0 : 2] != '#.':
-                        top_string += '\\item ' + data_list[i][2 : ] + '\n\\end{enumerate}\n'
+                        top_string += '\\item ' + rem_spaces(data_list[i][2 : ]) + '\n\\end{enumerate}\n'
                     elif data_list[i - 1][0 : 2] != '#.' and data_list[i + 1][0 : 2] == '#.':
-                        top_string += '\\begin{enumerate}\n\\item ' + data_list[i][2 : ] + '\n'
-            elif data_list[i][0 : 2] == '- ':
+                        top_string += '\\begin{enumerate}\n\\item ' + rem_spaces(data_list[i][2 : ]) + '\n'
+            elif data_list[i][0] == '-':
                 if i == 0:
-                    top_string += '\\begin{itemize}\n\\item ' + data_list[i][2 : ] + '\n'
-                    if data_list[1][0 : 2] != '- ':
+                    top_string += '\\begin{itemize}\n\\item ' + rem_spaces(data_list[i][1 : ]) + '\n'
+                    if data_list[1][0] != '-':
                         top_string += '\\end{itemize}\n'
                 else:
-                    if data_list[i - 1][0 : 2] == data_list[i + 1][0 : 2] == '- ':
-                        top_string += '\\item ' + data_list[i][2 : ] + '\n'
-                    elif data_list[i - 1][0 : 2] != '- ' and data_list[i + 1][0 : 2] != '- ':
-                        top_string += '\\begin{itemize}\n\\item ' + data_list[i][2 : ] + '\\end{itemize}\n'
-                    elif data_list[i - 1][0 : 2] == '- ' and data_list[i + 1][0 : 2] != '- ':
-                        top_string += '\\item ' + data_list[i][2 : ] + '\n\\end{itemize}\n'
-                    elif data_list[i - 1][0 : 2] != '- ' and data_list[i + 1][0 : 2] == '- ':
-                        top_string += '\\begin{itemize}\n\\item ' + data_list[i][2 : ] + '\n'
+                    if data_list[i - 1][0] == data_list[i + 1][0] == '-':
+                        top_string += '\\item ' + rem_spaces(data_list[i][1 : ]) + '\n'
+                    elif data_list[i - 1][0] != '-' and data_list[i + 1][0] != '-':
+                        top_string += '\\begin{itemize}\n\\item ' + rem_spaces(data_list[i][1 : ]) + '\\end{itemize}\n'
+                    elif data_list[i - 1][0] == '-' and data_list[i + 1][0] != '-':
+                        top_string += '\\item ' + rem_spaces(data_list[i][1 : ]) + '\n\\end{itemize}\n'
+                    elif data_list[i - 1][0] != '-' and data_list[i + 1][0] == '-':
+                        top_string += '\\begin{itemize}\n\\item ' + rem_spaces(data_list[i][1 : ]) + '\n'
             elif data_list[i + 1][0 : 2] == '\[' or data_list[i][0 : 2] == '\[':
                 top_string += data_list[i] + '\n'
-            elif data_list[i + 1][0 : 2] == '# ' or data_list[i + 1][0 : 2] == '#.' or data_list[i + 1][0 : 2] == '- ':
+            elif data_list[i + 1][0 : 2] == '# ' or data_list[i + 1][0 : 2] == '#.' or data_list[i + 1][0] == '-':
                 top_string += data_list[i] + '\n'
             else:
                 top_string += data_list[i] + '\\\\\n\n'
@@ -161,12 +167,12 @@ def to_tex(file_name):
             if data_list[list_length - 2][0 : 2] == '#.':
                 top_string += '\\item ' + data_list[list_length - 1][2 : ] + '\n\\end{enumerate}\n'
             else:
-                top_string += '\\begin{enumerate}\n\\item ' + data_list[list_length - 1][2 : ] + '\n\\end{enumerate}\n'
-        elif data_list[list_length - 1][0 : 2] == '- ':
-            if data_list[list_length - 2][0 : 2] == '- ':
-                top_string += '\\item ' + data_list[list_length - 1][2 : ] + '\n\\end{itemize}\n'
+                top_string += '\\begin{enumerate}\n\\item ' + rem_spaces(data_list[list_length - 1][2 : ]) + '\n\\end{enumerate}\n'
+        elif data_list[list_length - 1][0] == '-':
+            if data_list[list_length - 2][0] == '-':
+                top_string += '\\item ' + rem_spaces(data_list[list_length - 1][1 : ]) + '\n\\end{itemize}\n'
             else:
-                top_string += '\\begin{itemize}\n\\item ' + data_list[list_length - 1][2 : ] + '\n\\end{itemize}\n'
+                top_string += '\\begin{itemize}\n\\item ' + rem_spaces(data_list[list_length - 1][1 : ]) + '\n\\end{itemize}\n'
         else:
             top_string += data_list[list_length - 1]
         
