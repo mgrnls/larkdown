@@ -2,21 +2,19 @@
 A _very_ basic markdown-esque text-to-tex tool that allows for the easy creation of LaTeX documents. Mostly used by myself to quickly write up homework solutions.
 
 # Using larkdown
-To start, open a plain text file and save it as _filename.txt_. The first three lines of the file are reserved for the title, author and date declarations. To add a title, author or date, add the following
-```
-#T Title
-#A Author
-#D Date
-```
-to the top of the file, where you replace (for example) 'Title' with whatever you wish your title to be. If you do not wish to have any of the above three, then simply leave out the desired line. The date field can simply be left as '#D' and the current date will be automatically filled in by LaTeX.
+To start, open a plain text file and save it as _filename.txt_. 
 
-To add a section heading, simply begin a line with '# ' followed by your desired section heading.
+To add a title to your document, start a line with `#T` followed by the title you wish to use. If you have more than one line beginning with `#T` then only the last one will be used. You can similary add an author by starting a line with `#A` followed by the author(s) name(s), and you can add a date by starting a line with `#D` followed by the date you would like to use. However, if you have a line which has only `#D` on, it will automatically fill in the current date for you when you compile to LaTeX.
+
+To add a section heading, simply begin a line with `# ` followed by your desired section heading.
 
 You can also use bullet points or numbered lists. These will use the itemize and enumerate environments in LaTeX respectively. To use bullet points, simply start each line with `- ` and to use numbered lists start each line with `#.` followed by some text.
 
-Each line of text will be treated as a separate paragraph, and blank lines will be ignored. However, if a line starts with '\\\[' it will be treated as a math mode line.
+Each line of text will be treated as a separate paragraph, and blank lines will be ignored.
 
 To add bold and/or italics, simply surround things you want in italics by \_underscores\_ and things you want in bold by \*asterisks\*.
+
+If you wish to use an equation inline, simply surround it by two single $, and to use an equation on a new line, simply surround it by two $$ (where each of the $$'s is on its own line).
 
 # Example
 Below is a very simple example.
@@ -28,7 +26,9 @@ Below is a very simple example.
 This is the first paragraph in the text.
 
 This is another paragraph! Here we can use inline math mode like this $4x + 3$ or
-\[4x+3\]
+$$
+4x + 3
+$$
 to have it on a seperate line.
 
 Just remember to put all your mathmode on the same line!
