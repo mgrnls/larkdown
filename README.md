@@ -4,17 +4,17 @@ A _very_ basic markdown-esque text-to-tex tool that allows for the easy creation
 # Using larkdown
 To start, open a plain text file and save it as _filename.txt_. 
 
-To add a title to your document, start a line with `#T` followed by the title you wish to use. If you have more than one line beginning with `#T` then only the last one will be used. You can similary add an author by starting a line with `#A` followed by the author(s) name(s), and you can add a date by starting a line with `#D` followed by the date you would like to use. However, if you have a line which has only `#D` on, it will automatically fill in the current date for you when you compile to LaTeX.
+To add a title to your document, start a line with `#T` followed by a space the title you wish to use. If you have more than one line beginning with `#T` then only the last one will be used. Similary, you can add an author (or many) by starting a line with `#A` followed by a space and the author(s) name(s), and you can add a date by starting a line with `#D` followed by a spcae and the date you would like to use. If you wish to use the current date, you can add a line which has only `#D` and LaTeX will take care of it for you.
 
-To add a section heading, simply begin a line with `# ` followed by your desired section heading.
+To add a section heading, simply begin a line with `#` followed by a space and your desired section heading.
 
-You can also use bullet points or numbered lists. These will use the itemize and enumerate environments in LaTeX respectively. To use bullet points, simply start each line with `- ` and to use numbered lists start each line with `#.` followed by some text.
+You can also use bullet points or numbered lists. These will use the itemize and enumerate environments in LaTeX respectively. To use bullet points, simply start each line with `-` and to use numbered lists start each line with `#.` followed by some text.
 
 Each line of text will be treated as a separate paragraph, and blank lines will be ignored.
 
-To add bold and/or italics, simply surround things you want in italics by \_underscores\_ and things you want in bold by \*asterisks\*.
+To make a word or seqeuence of words bold or italic, simply surround the text in question with \*asterisks\* or \_underscores\_ respectively. 
 
-If you wish to use an equation inline, simply surround it by two single $, and to use an equation on a new line, simply surround it by two $$ (where each of the $$'s is on its own line).
+If you wish to use an equation inline, simply surround it by two single $'s, and to use an equation on a new line, simply surround it by two $$ (where each of the $$'s is on its own line).
 
 # Example
 Below is a very simple example.
