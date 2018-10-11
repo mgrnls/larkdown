@@ -178,7 +178,7 @@ def to_tex(file_name: str):
             is_date = True
             date = rem_spaces(data_list[i][2 : ])
         elif data_list[i][0 : 2] == '# ':
-            content += '\section*{' + rem_spaces(data_list[i][2 : ]) + '}\n'
+            content += '\section*{' + to_bold_italic(rem_spaces(data_list[i][2 : ])) + '}\n'
         elif data_list[i][0 : 2] == '#.':
             content += to_list(data_list, 'enumerate', i, list_length)
         elif data_list[i][0] == '-':
@@ -186,7 +186,7 @@ def to_tex(file_name: str):
         elif data_list[i][0 : 2] == '$$':
             content += to_mathmode(data_list[i][2 : -2])
         else:
-            content += data_list[i] + '\\\\\n\n'
+            content += to_bold_italic(rem_spaces(data_list[i])) + '\\\\\n\n'
     
     if is_title:
         top_string += '\\title{' + title + '}\n'
