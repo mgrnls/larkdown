@@ -1,18 +1,16 @@
 #!/usr/bin/env python
-
 import sys
 
-
-
 def main():
-    # main loop that is called when program is run
-    
-    # save all the files as a list
+    """
+    Main function that is run when started.
+    """
+    # save all the file names as a list of strings
     arguments = sys.argv[1 : ]
     
     # if there are no files, print an error message
-    if len(arguments) == 0:
-        print('No file(s) selected')
+    if not arguments:
+        print('No files selected')
     
     for arg in arguments:
         to_tex(arg)
@@ -20,16 +18,23 @@ def main():
 
 
 def rem_spaces(input_string: str):
-    # removes spaces from the beginning of a string
-    for i in range(len(input_string)):
-        if input_string[i] != ' ':
-            return input_string[i :]
-    return ''
+    """
+    Removes spaces from the beginning of a string, returns an empty string if
+    input is empty or a string containing only spaces.
+    """
+    return input_string.strip()
+    #for i in range(len(input_string)):
+    #    if input_string[i] != ' ':
+    #        return input_string[i :]
+    #return ''
 
 
 
 def read_to_list(input_string: str):
-    # this function takes in a string and separates it into lines and mathmode environments
+    """
+    This function takes in a string and separates it into lines and multiline
+    mathmode environments.
+    """
     length_of_input_string = len(input_string)
     
     if length_of_input_string == 1:
@@ -38,14 +43,12 @@ def read_to_list(input_string: str):
     # an integer to remember where the beginning of the current line is
     beginning_of_line = 0
     
-    
     # create an empty list that we will add to
     output_list = []
     
-    # a boolean which we will use to test if we are in mathmode or not
+    # a boolean which we will use to test if we are in multiline mathmode 
     in_mathmode = False
     
-    # start a counter i at 0
     i = 0
     
     while i < length_of_input_string - 1:
@@ -62,13 +65,17 @@ def read_to_list(input_string: str):
                 beginning_of_line = i
                 in_mathmode = True
         i += 1
-    output_list.append(input_string[beginning_of_line : i])
+    output_list.append(input_string[beginning_of_line : i + 1])
     
     return output_list
 
 
 
 def to_bold_italic(input_string: str):
+    """
+    Given a line of text, replaces the *'s and _'s with LaTeX textbf and textit
+    environments respectively.
+    """
     temp_string = ''
     italic_mode = False
     bold_mode = False
@@ -89,9 +96,7 @@ def to_bold_italic(input_string: str):
         else:
             temp_string += i
     
-    if italic_mode:
-        temp_string += '}'
-    if bold_mode:
+    if italic_mode or bold_mode:
         temp_string += '}'
         
     return temp_string
@@ -99,6 +104,10 @@ def to_bold_italic(input_string: str):
 
 
 def to_list(list_of: list, type_of: str, line_number: int, list_len: int):
+    """
+    Given a list of strings representing either an itemize or enumerate 
+    environment, return the formatted version.
+    """
     # test if enumerate or itemize
     if type_of == 'enumerate':
         start_at = 2
@@ -108,30 +117,77 @@ def to_list(list_of: list, type_of: str, line_number: int, list_len: int):
         testing_str = '-'
     
     if line_number == 0:
-        output_str = '\\begin{' + type_of + '}\n\\item ' + to_bold_italic(rem_spaces(list_of[0][start_at : ])) + '\n'
+        output_str = (
+            '\\begin{' + 
+            type_of + 
+            '}\n\\item ' + 
+            to_bold_italic(rem_spaces(list_of[0][start_at : ])) + 
+            '\n'
+        )
+
         if list_of[1][0 : start_at] != testing_str:
             output_str += '\\end{' + type_of + '}\n'
+
     elif line_number == list_len - 1:
         if list_of[list_len - 2][0 : start_at] == testing_str:
-            output_str = '\\item ' + to_bold_italic(rem_spaces(list_of[list_len - 1][start_at : ])) + '\n\\end{' + type_of + '}\n'
+            output_str = (
+                '\\item ' + 
+                to_bold_italic(
+                    rem_spaces(list_of[list_len - 1][start_at : ])
+                ) + 
+                '\n\\end{' + 
+                type_of + 
+                '}\n'
+            )
         else:
-            output_str = '\\begin{' + type_of + '}\n\\item ' + rem_spaces(list_of[list_len - 1][start_at : ]) + '\n\\end{' + type_of + '}\n'
+            output_str = (
+                '\\begin{' + 
+                type_of + 
+                '}\n\\item ' + 
+                rem_spaces(list_of[list_len - 1][start_at : ]) + 
+                '\n\\end{' + 
+                type_of + 
+                '}\n'
+            )
     else:
-        if list_of[line_number - 1][0 : start_at] == list_of[line_number + 1][0 : start_at] == testing_str:
-            output_str = '\\item ' + to_bold_italic(rem_spaces(list_of[line_number][start_at : ])) + '\n'
-        elif list_of[line_number - 1][0 : start_at] != testing_str and list_of[line_number + 1][0 : start_at] != testing_str:
-            output_str = '\\begin{' + type_of +'}\n\\item ' + to_bold_italic(rem_spaces(list_of[line_number][start_at : ])) + '\n\\end{' + type_of + '}\n'
-        elif list_of[line_number - 1][0 : start_at] == testing_str and list_of[line_number + 1][0 : start_at] != testing_str:
-            output_str = '\\item ' + to_bold_italic(rem_spaces(list_of[line_number][start_at : ])) + '\n\\end{' + type_of +'}\n'
-        elif list_of[line_number - 1][0 : start_at] != testing_str and list_of[line_number + 1][0 : start_at] == testing_str:
-            output_str = '\\begin{' + type_of +'}\n\\item ' + to_bold_italic(rem_spaces(list_of[line_number][start_at : ])) + '\n'
+        prev_line = list_of[line_number - 1][0 : start_at]
+        next_line = list_of[line_number + 1][0 : start_at]
+        middle = to_bold_italic(rem_spaces(list_of[line_number][start_at : ]))
+        
+        if prev_line == next_line == testing_str:
+            output_str = '\\item ' + middle + '\n'
+        elif prev_line != testing_str and next_line != testing_str:
+            output_str = (
+                '\\begin{' + 
+                type_of +
+                '}\n\\item ' + 
+                middle + 
+                '\n\\end{' + 
+                type_of + 
+                '}\n'
+            )
+        elif prev_line == testing_str and next_line != testing_str:
+            output_str = '\\item ' + middle + '\n\\end{' + type_of +'}\n'
+        elif prev_line != testing_str and next_line == testing_str:
+            output_str = '\\begin{' + type_of +'}\n\\item ' + middle + '\n'
     return output_str
 
 
 
 def to_mathmode(input_string: str):
-    list_of_maths = [x for x in input_string.split('\n') if rem_spaces(x) != '']
-    
+    """
+    Takes a string contained within a multiline mathmode environment and
+    formats it as an align environment. If there is exactly one equals
+    sign in each line, then it aligns the equals signs.
+    """
+    list_of_maths = [
+        rem_spaces(x) for x in input_string.split('\n') if rem_spaces(x)
+    ]
+
+    align_equals = all(1 == x.count('=') for x in list_of_maths)
+    if align_equals:
+        list_of_maths = [line.replace('=', '&=') for line in list_of_maths]
+
     length_of_list = len(list_of_maths)
     
     if length_of_list == 1:
@@ -148,7 +204,10 @@ def to_mathmode(input_string: str):
 
 
 def to_tex(file_name: str):
-    
+    """
+    This function is run for each file that is passed to it, and creates a
+    new file with the same name but with a .tex extension.
+    """
     # this is the top few lines of the tex document that we wil be adding to
     top_string = '\\documentclass{article}\n\\usepackage{enumerate}\n\\usepackage{amsfonts}\n\\usepackage{amsmath}\n\\usepackage{enumerate}\n\\usepackage[margin=1in]{geometry}\n\\setlength{\\parindent}{0in}\n'
     
@@ -171,20 +230,38 @@ def to_tex(file_name: str):
         if data_list[i][0 : 2] == '#T':
             is_title = True
             title = rem_spaces(data_list[i][2 : ])
+
         elif data_list[i][0 : 2] == '#A':
             is_author = True
             author = rem_spaces(data_list[i][2 : ])
+
         elif data_list[i][0 : 2] == '#D':
             is_date = True
             date = rem_spaces(data_list[i][2 : ])
+
         elif data_list[i][0 : 2] == '# ':
-            content += '\section*{' + to_bold_italic(rem_spaces(data_list[i][2 : ])) + '}\n'
+            content += (
+                    '\section*{' + 
+                    to_bold_italic(rem_spaces(data_list[i][2 : ])) + 
+                    '}\n'
+                    )
+
+        elif data_list[i][0 : 3] == '## ':
+            content += (
+                '\subsection*{' +
+                to_bold_italic(rem_spaces(data_list[i][3 : ])) +
+                '}\n'
+                )
+
         elif data_list[i][0 : 2] == '#.':
             content += to_list(data_list, 'enumerate', i, list_length)
+
         elif data_list[i][0] == '-':
             content += to_list(data_list, 'itemize', i, list_length)
+
         elif data_list[i][0 : 2] == '$$':
             content += to_mathmode(data_list[i][2 : -2])
+
         else:
             content += to_bold_italic(rem_spaces(data_list[i])) + '\\\\\n\n'
     
@@ -205,11 +282,14 @@ def to_tex(file_name: str):
     final = top_string + content + '\\end{document}'
     
     # declare a new file name (only works for txt files)
-    new_file_name = file_name[ : -4] + '.tex'
+    if file_name[-4 : ] == '.txt':
+        new_file_name = file_name[ : -4] + '.tex'
+    elif file_name[-3 : ] == '.md':
+        new_file_name = file_name[ : -3] + '.tex'
         
     # write final tex file
     with open(new_file_name, 'w') as f:
-        read_data = f.write(final)
+        f.write(final)
 
 
 
