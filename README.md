@@ -25,13 +25,14 @@ Below is a very simple example.
 # This is a section heading!
 This is the first paragraph in the text.
 
+## This is a subsection heading!
 This is another paragraph! Here we can use inline math mode like this $4x + 3$ or
 $$
 4x + 3
 $$
 to have it on a seperate line.
 
-Just remember to put all your mathmode on the same line!
+If you have exactly one equals sign in each line in a math mode environment, it will automatically align them vertically using the LaTeX align environment.
 
 Below is a numbered list:
 #. first thing
