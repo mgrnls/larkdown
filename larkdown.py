@@ -230,38 +230,30 @@ def to_tex(file_name: str):
         if data_list[i][0 : 2] == '#T':
             is_title = True
             title = rem_spaces(data_list[i][2 : ])
-
         elif data_list[i][0 : 2] == '#A':
             is_author = True
             author = rem_spaces(data_list[i][2 : ])
-
         elif data_list[i][0 : 2] == '#D':
             is_date = True
             date = rem_spaces(data_list[i][2 : ])
-
         elif data_list[i][0 : 2] == '# ':
             content += (
                     '\section*{' + 
                     to_bold_italic(rem_spaces(data_list[i][2 : ])) + 
                     '}\n'
                     )
-
         elif data_list[i][0 : 3] == '## ':
             content += (
                 '\subsection*{' +
                 to_bold_italic(rem_spaces(data_list[i][3 : ])) +
                 '}\n'
                 )
-
         elif data_list[i][0 : 2] == '#.':
             content += to_list(data_list, 'enumerate', i, list_length)
-
         elif data_list[i][0] == '-':
             content += to_list(data_list, 'itemize', i, list_length)
-
         elif data_list[i][0 : 2] == '$$':
             content += to_mathmode(data_list[i][2 : -2])
-
         else:
             content += to_bold_italic(rem_spaces(data_list[i])) + '\\\\\n\n'
     
