@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import os
 
 def main():
     """
@@ -7,6 +8,9 @@ def main():
     """
     # save all the file names as a list of strings
     arguments = sys.argv[1 : ]
+    if arguments[0] == '-p':
+        arguments = arguments[1 : ]
+        pdflatex = True
     
     # if there are no files, print an error message
     if not arguments:
@@ -14,6 +18,11 @@ def main():
     
     for arg in arguments:
         to_tex(arg)
+
+    if pdflatex:
+        for arg in arguments:
+            filename = arg.split('.')
+            os.system('pdflatex ' + '.'.join(filename[ : -1 ]) + '.tex')
 
 
 
@@ -23,10 +32,6 @@ def rem_spaces(input_string: str):
     input is empty or a string containing only spaces.
     """
     return input_string.strip()
-    #for i in range(len(input_string)):
-    #    if input_string[i] != ' ':
-    #        return input_string[i :]
-    #return ''
 
 
 
