@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
 import os
 
@@ -8,13 +8,18 @@ def main():
     """
     # save all the file names as a list of strings
     arguments = sys.argv[1 : ]
-    if arguments[0] == '-p':
-        arguments = arguments[1 : ]
-        pdflatex = True
+    pdflatex = False
     
     # if there are no files, print an error message
     if not arguments:
         print('No files selected')
+    else:
+        if arguments[0] == '-p':
+            arguments = arguments[1 : ]
+            if not arguments:
+                print('No files selected')
+            pdflatex = True
+ 
     
     for arg in arguments:
         to_tex(arg)
