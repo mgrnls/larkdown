@@ -54,4 +54,4 @@ Open the terminal in the directory of your file and type `python3 larkdown.py fi
 You can also use the -p flag when running larkdown, this will automatically run pdflatex for you. To do this, run `python3 larkdown.py -p filename.txt`. Again, you must have pdflatex installed for this to work.
 
 # Adding to path
-This part is mostly just for my reference. Create a folder `~/.tools` and move the file `larkdown.py` into it. Rename `larkdown.py` to `larkdown`, and then add `~/.tools` to `/etc/paths`. You may also need to do `chmod u+x larkdown`.
+This part is mostly just for my reference. Create a folder `~/.tools` and move the file `larkdown.py` into it. Rename `larkdown.py` to `larkdown`, and then add `~/.tools` to `/etc/paths`. You also need to do `chmod u+x larkdown`. Then you can use `larkdown -p filename1.txt filename2.txt` from anywhere, without having to worry about the location of the `larkdown.py` file.
