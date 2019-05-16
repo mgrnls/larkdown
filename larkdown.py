@@ -213,13 +213,13 @@ def to_tex(file_name):
     list_length = len(data_list)
     
     for i in range(list_length):
-        if data_list[i][0 : 3] == '#T ':
+        if data_list[i][0 : 2] == '#T':
             is_title = True
-            title = rem_spaces(data_list[i][3 : ])
-        elif data_list[i][0 : 3] == '#A ':
+            title = rem_spaces(data_list[i][2 : ])
+        elif data_list[i][0 : 2] == '#A':
             is_author = True
-            author = rem_spaces(data_list[i][3 : ])
-        elif data_list[i][0 : 3] == '#D ':
+            author = rem_spaces(data_list[i][2 : ])
+        elif data_list[i][0 : 2] == '#D':
             is_date = True
             date = rem_spaces(data_list[i][3 : ])
         elif data_list[i][0 : 2] == '# ':
@@ -247,10 +247,15 @@ def to_tex(file_name):
         top_string += '\\title{' + title + '}\n'
     if is_author:
         top_string += '\\author{' + author + '}\n'
+
     if is_date:
-        top_string += '\\date{' + date + '}\n'
+        if date:
+            top_string += '\\date{' + date + '}\n'
     else:
-        top_string += '\\date{}'
+        top_string += '\\date{}\n'
+
+    #else:
+        #top_string += '\\date{}'
     
     top_string += '\\begin{document}\n'
     
